@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSLAS Faculty Quarterly Appraisal</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243258;
+    --gold: #b8963e;
+    --gold-light: #d4af6a;
+    --cream: #f8f4ef;
+    --cream-dark: #ede8e1;
+    --text: #2c2c2c;
+    --text-muted: #6b6b6b;
+    --border: #d5cfc6;
+    --green: #2d6a4f;
+    --green-light: #e8f5ee;
+    --amber: #b5541e;
+    --amber-light: #fdf0e8;
+    --star4: #1a3a5c;
+    --star3: #2d6a4f;
+    --star2: #5c4d1a;
+    --section-gap: 2rem;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .page-header {
+    background: var(--navy);
+    color: white;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 30px,
+      rgba(255,255,255,0.02) 30px,
+      rgba(255,255,255,0.02) 31px
+    );
+  }
+  .header-inner {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .header-emblem {
+    width: 64px; height: 64px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    background: rgba(184,150,62,0.1);
+  }
+  .header-text h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: white;
+  }
+  .header-text .subtitle {
+    font-size: 0.78rem;
+    color: var(--gold-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+  .header-badge {
+    margin-left: auto;
+    text-align: right;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    font-style: italic;
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* PROGRESS DASHBOARD */
+  .dashboard {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: var(--section-gap);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .dash-card {
+    background: rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .dash-card .dash-label {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .dash-card .dash-value {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .dash-card .dash-sub {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.3rem;
+  }
+  .progress-bar-wrap {
+    grid-column: 1 / -1;
+    background: rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .progress-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+  }
+  .progress-bar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  /* SECTIONS */
+  .section {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: var(--section-gap);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .section-header {
+    background: var(--navy);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .section-number {
+    width: 28px; height: 28px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  .section-body {
+    padding: 1.5rem;
+  }
+  .section-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 1.2rem;
+    padding: 0.6rem 0.8rem;
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* PERSONAL INFO GRID */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .info-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .field-group.span2 { grid-column: span 2; }
+  label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+  input[type="text"], input[type="date"], select, textarea {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.5rem 0.7rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+  }
+  input[type="text"]:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184,150,62,0.12);
+    background: white;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* PUBLICATION TABLE */
+  .pub-table-wrap {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  thead tr {
+    background: var(--cream-dark);
+  }
+  th {
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid rgba(213,207,198,0.5);
+    vertical-align: middle;
+  }
+  tbody tr:hover { background: var(--cream); }
+  .star-badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+  .star4-badge { background: rgba(26,58,92,0.1); color: var(--star4); }
+  .star3-badge { background: rgba(45,106,79,0.1); color: var(--star3); }
+  .star2-badge { background: rgba(92,77,26,0.1); color: var(--star2); }
+  td input[type="text"], td select {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.82rem;
+    background: white;
+    border: 1px solid var(--border);
+  }
+  .points-cell {
+    font-weight: 600;
+    color: var(--navy);
+    text-align: center;
+    min-width: 60px;
+  }
+  .solo-check { text-align: center; }
+  input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .btn-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px dashed var(--gold);
+    background: transparent;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-add:hover { background: rgba(184,150,62,0.08); }
+  .btn-remove {
+    background: none;
+    border: none;
+    color: #cc4444;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .btn-remove:hover { background: rgba(204,68,68,0.1); }
+
+  /* POINTS SUMMARY */
+  .points-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+    padding: 1rem;
+    background: var(--cream);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .ps-item { text-align: center; }
+  .ps-item .ps-count {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .ps-item .ps-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+  .ps-divider { width: 1px; background: var(--border); }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .checklist li:hover { background: var(--cream-dark); }
+  .checklist li.checked {
+    background: var(--green-light);
+    border-color: #a8d5be;
+  }
+  .checklist li input { flex-shrink: 0; margin-top: 2px; }
+  .checklist li .item-text { flex: 1; }
+  .checklist li .item-note {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  /* OUTREACH TABLE */
+  .outreach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+  .outreach-item {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .outreach-item .outreach-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .outreach-item .outreach-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.3rem;
+  }
+  .outreach-item input[type="number"] {
+    width: 70px;
+    padding: 0.25rem 0.4rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.88rem;
+    text-align: center;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .outreach-item input[type="number"]:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+
+  /* REQUIREMENTS PANEL */
+  .req-panel {
+    background: linear-gradient(135deg, #1a2744 0%, #243258 100%);
+    border-radius: 10px;
+    padding: 1.2rem;
+    color: white;
+    margin-bottom: 1.2rem;
+  }
+  .req-panel h4 {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+    color: var(--gold-light);
+    margin-bottom: 0.8rem;
+    font-style: italic;
+  }
+  .req-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .req-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.8);
+  }
+  .req-list li .req-icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+    flex-shrink: 0;
+  }
+  .req-met { background: var(--green); }
+  .req-pending { background: rgba(255,255,255,0.15); }
+  .req-warn { background: #b5541e; }
+
+  /* RATING */
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  .rating-row label { min-width: 180px; font-size: 0.82rem; text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--text); }
+  .rating-stars { display: flex; gap: 0.3rem; }
+  .rating-stars button {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: white;
+    cursor: pointer;
+    font-size: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .rating-stars button.active { background: var(--navy); border-color: var(--navy); color: white; }
+
+  /* NARRATIVE */
+  .narrative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.2rem 0;
+  }
+
+  /* SUBSECTION */
+  .subsection-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--cream-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .subsection-title span.dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: inline-block;
+  }
+
+  /* SUBMIT */
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1.2rem 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .form-actions .note { font-size: 0.75rem; color: var(--text-muted); font-style: italic; }
+  .btn-print {
+    padding: 0.6rem 1.6rem;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+  .btn-print:hover { background: var(--navy-light); }
+  .btn-save {
+    padding: 0.6rem 1.6rem;
+    background: transparent;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    margin-right: 0.8rem;
+  }
+  .btn-save:hover { background: var(--cream); }
+
+  /* STATUS CHIPS */
+  .chip {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .chip-green { background: var(--green-light); color: var(--green); border: 1px solid #a8d5be; }
+  .chip-amber { background: var(--amber-light); color: var(--amber); border: 1px solid #e8b09a; }
+
+  /* PRINT */
+  @media print {
+    body { font-size: 11px; }
+    .page-header { print-color-adjust: exact; }
+    .dashboard { print-color-adjust: exact; }
+    .form-actions { display: none; }
+    .btn-add, .btn-remove { display: none; }
+  }
+  @media (max-width: 650px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .info-grid.three { grid-template-columns: 1fr; }
+    .dashboard { grid-template-columns: 1fr 1fr; }
+    .points-summary { grid-template-columns: 1fr 1fr; }
+    .outreach-grid { grid-template-columns: 1fr; }
+    .narrative-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-emblem">T</div>
+    <div class="header-text">
+      <h1>Thapar School of Liberal Arts &amp; Sciences</h1>
+      <div class="subtitle">Faculty Quarterly Appraisal &amp; Progress Tracker · TSLAS Promotion Norms 2024–2027</div>
+    </div>
+    <div class="header-badge">
+      TIET, Patiala<br>
+      <em>Validity: 2024–2027</em>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- LIVE DASHBOARD -->
+  <div class="dashboard">
+    <div class="dash-card">
+      <div class="dash-label">Research Points (Cumulative)</div>
+      <div class="dash-value" id="dash-points">0</div>
+      <div class="dash-sub">Required for next level: <span id="dash-req-pts">—</span></div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-label">Publications This Quarter</div>
+      <div class="dash-value" id="dash-pubs">0</div>
+      <div class="dash-sub">Total accumulated: <span id="dash-total-pubs">0</span></div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-label">4★ Publications</div>
+      <div class="dash-value" id="dash-4star">0</div>
+      <div class="dash-sub">Required: <span id="dash-req-4star">—</span></div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-label">
+        <span>Progress toward next promotion</span>
+        <span id="dash-pct">0%</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="dash-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: PERSONAL INFORMATION -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title">Faculty Information</div>
+    </div>
+    <div class="section-body">
+      <div class="info-grid">
+        <div class="field-group">
+          <label>Full Name</label>
+          <input type="text" id="fname" placeholder="Dr. / Prof. …">
+        </div>
+        <div class="field-group">
+          <label>Department / Discipline</label>
+          <select id="dept">
+            <option value="">— Select —</option>
+            <option>Economics</option>
+            <option>History</option>
+            <option>Philosophy</option>
+            <option>Sociology</option>
+            <option>Political Science</option>
+            <option>Literary &amp; Cultural Studies</option>
+            <option>CASP (Fine Arts)</option>
+            <option>Anthropology / Gender Studies</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Current Designation</label>
+          <select id="designation" onchange="updateRequirements()">
+            <option value="">— Select —</option>
+            <option value="AP1">Assistant Professor I</option>
+            <option value="AP2">Assistant Professor II</option>
+            <option value="AP3">Assistant Professor III</option>
+            <option value="Assoc">Associate Professor</option>
+            <option value="Prof">Professor</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Seeking Promotion To</label>
+          <select id="seeking">
+            <option value="">— Select —</option>
+            <option value="AP2">Assistant Professor II</option>
+            <option value="AP3">Assistant Professor III</option>
+            <option value="Assoc">Associate Professor</option>
+            <option value="Prof">Professor</option>
+          </select>
+        </div>
+      </div>
+      <hr class="divider">
+      <div class="info-grid three">
+        <div class="field-group">
+          <label>Quarter</label>
+          <select id="quarter">
+            <option>Q1 (January – March)</option>
+            <option>Q2 (April – June)</option>
+            <option>Q3 (July – September)</option>
+            <option>Q4 (October – December)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Academic Year</label>
+          <input type="text" id="acad-year" placeholder="e.g. 2025–26">
+        </div>
+        <div class="field-group">
+          <label>Date of Joining TSLAS</label>
+          <input type="date" id="doj">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: RESEARCH OUTPUTS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title">Research &amp; Scholarship — Outputs</div>
+    </div>
+    <div class="section-body">
+
+      <div class="section-note">
+        Star ratings follow SJR quartile at time of publication: ★★★★ = Q1 (50 pts), ★★★ = Q2 (20 pts), ★★ = Q3 / Scopus conf. (10 pts). Q4 and unindexed journals do not count toward promotion. Co-authorship is welcomed and not penalised.
+      </div>
+
+      <!-- Requirements Panel -->
+      <div class="req-panel" id="req-panel">
+        <h4>Minimum requirements for your target level will appear here — please select your designation and target above.</h4>
+        <ul class="req-list" id="req-list"></ul>
+      </div>
+
+      <div class="subsection-title"><span class="dot"></span> Journal Articles &amp; Conference Proceedings</div>
+      <div class="pub-table-wrap">
+        <table id="pub-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th style="min-width:200px">Title / Description</th>
+              <th>Journal / Venue</th>
+              <th>SJR Quartile</th>
+              <th>Status</th>
+              <th>★ Rating</th>
+              <th>Solo?</th>
+              <th>Points</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="pub-tbody">
+          </tbody>
+        </table>
+      </div>
+      <button class="btn-add" onclick="addPubRow()">+ Add Publication</button>
+
+      <hr class="divider">
+      <div class="subsection-title"><span class="dot"></span> Monographs &amp; Book Chapters</div>
+      <div class="pub-table-wrap">
+        <table id="book-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th style="min-width:200px">Title</th>
+              <th>Publisher</th>
+              <th>Publisher Rank</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>★ Rating</th>
+              <th>Points</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="book-tbody">
+          </tbody>
+        </table>
+      </div>
+      <button class="btn-add" onclick="addBookRow()">+ Add Monograph / Book Chapter</button>
+
+      <hr class="divider">
+      <div class="subsection-title"><span class="dot"></span> Working Papers / Manuscripts in Progress</div>
+      <div class="pub-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th style="min-width:200px">Title / Topic</th>
+              <th>Stage</th>
+              <th>Target Journal / Venue</th>
+              <th>Evidence of Submission?</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="wp-tbody">
+          </tbody>
+        </table>
+      </div>
+      <button class="btn-add" onclick="addWPRow()">+ Add Working Paper</button>
+
+      <!-- Points Summary -->
+      <div class="points-summary">
+        <div class="ps-item">
+          <div class="ps-count" id="ps-4star">0</div>
+          <div class="ps-label">4★ Papers</div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-count" id="ps-3star">0</div>
+          <div class="ps-label">3★ Papers</div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-count" id="ps-2star">0</div>
+          <div class="ps-label">2★ Papers</div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-count" id="ps-total">0</div>
+          <div class="ps-label">Total Points</div>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="subsection-title"><span class="dot"></span> Grants &amp; Funded Research</div>
+      <div class="pub-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Grant / Project Title</th>
+              <th>Funding Body</th>
+              <th>Type</th>
+              <th>Amount (₹)</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="grant-tbody">
+          </tbody>
+        </table>
+      </div>
+      <button class="btn-add" onclick="addGrantRow()">+ Add Grant</button>
+
+    </div>
+  </div>
+
+  <!-- SECTION 3: RESEARCH OUTREACH -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title">Research Outreach &amp; Reputation</div>
+    </div>
+    <div class="section-body">
+      <div class="section-note">
+        Outreach activities build your national and international reputation. They are not part of minimum requirements but are weighted positively in the committee's holistic assessment.
+      </div>
+      <div class="outreach-grid">
+        <div class="outreach-item">
+          <div class="outreach-icon">📢</div>
+          <div>
+            <div class="outreach-label">Conference Presentations</div>
+            <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.2rem">
+              <span style="font-size:0.75rem;color:var(--text-muted)">National:</span>
+              <input type="number" min="0" value="0" id="conf-nat" style="width:50px">
+              <span style="font-size:0.75rem;color:var(--text-muted)">Intl:</span>
+              <input type="number" min="0" value="0" id="conf-intl" style="width:50px">
+            </div>
+          </div>
+        </div>
+        <div class="outreach-item">
+          <div class="outreach-icon">🎤</div>
+          <div>
+            <div class="outreach-label">Invited Lectures / Keynotes</div>
+            <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.2rem">
+              <span style="font-size:0.75rem;color:var(--text-muted)">National:</span>
+              <input type="number" min="0" value="0" id="lec-nat">
+              <span style="font-size:0.75rem;color:var(--text-muted)">Intl:</span>
+              <input type="number" min="0" value="0" id="lec-intl">
+            </div>
+          </div>
+        </div>
+        <div class="outreach-item">
+          <div class="outreach-icon">🏛️</div>
+          <div>
+            <div class="outreach-label">Conference / Workshop Organisation</div>
+            <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.2rem">
+              <span style="font-size:0.75rem;color:var(--text-muted)">National:</span>
+              <input type="number" min="0" value="0" id="org-nat">
+              <span style="font-size:0.75rem;color:var(--text-muted)">Intl:</span>
+              <input type="number" min="0" value="0" id="org-intl">
+            </div>
+          </div>
+        </div>
+        <div class="outreach-item">
+          <div class="outreach-icon">✈️</div>
+          <div>
+            <div class="outreach-label">Visiting Positions / Residencies</div>
+            <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.2rem">
+              <span style="font-size:0.75rem;color:var(--text-muted)">Funded:</span>
+              <input type="number" min="0" value="0" id="visit-funded">
+              <span style="font-size:0.75rem;color:var(--text-muted)">Other:</span>
+              <input type="number" min="0" value="0" id="visit-other">
+            </div>
+          </div>
+        </div>
+        <div class="outreach-item">
+          <div class="outreach-icon">📋</div>
+          <div>
+            <div class="outreach-label">Editorial / Advisory Boards</div>
+            <div style="margin-top:0.2rem">
+              <input type="text" placeholder="Names of journals / boards …" id="editorial" style="width:100%">
+            </div>
+          </div>
+        </div>
+        <div class="outreach-item">
+          <div class="outreach-icon">🎨</div>
+          <div>
+            <div class="outreach-label">Exhibitions (Fine Arts)</div>
+            <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.2rem">
+              <span style="font-size:0.75rem;color:var(--text-muted)">National:</span>
+              <input type="number" min="0" value="0" id="exhibit-nat">
+              <span style="font-size:0.75rem;color:var(--text-muted)">Intl:</span>
+              <input type="number" min="0" value="0" id="exhibit-intl">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:0.5rem">
+        <label>Notable outreach activities — brief description</label>
+        <textarea placeholder="Describe any particularly significant outreach activities this quarter …"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: TEACHING & CURRICULUM -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title">Teaching &amp; Curriculum Development</div>
+    </div>
+    <div class="section-body">
+      <div class="section-note">
+        Essential requirement for Associate and Professor: 4 interdisciplinary core courses in 6 years. The committee considers teaching quality, course design, and timely completion of all course-related activities.
+      </div>
+
+      <div class="subsection-title"><span class="dot"></span> Courses Taught This Quarter</div>
+      <div class="pub-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Course Name / Code</th>
+              <th>Type</th>
+              <th>Students</th>
+              <th>Interdisciplinary Core?</th>
+              <th>Outcome / Highlight</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="course-tbody">
+          </tbody>
+        </table>
+      </div>
+      <button class="btn-add" onclick="addCourseRow()">+ Add Course</button>
+
+      <hr class="divider">
+      <div class="subsection-title"><span class="dot"></span> Curriculum Development Activities</div>
+      <ul class="checklist" id="curr-checklist">
+        <li onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-text">
+            New course designed/proposed
+            <div class="item-note">Include course code and brief rationale</div>
+          </div>
+        </li>
+        <li onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-text">Existing course significantly revised or updated</div>
+        </li>
+        <li onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-text">
+            Innovative pedagogy introduced (e.g. flipped classroom, simulation, MOOC component)
+          </div>
+        </li>
+        <li onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-text">Student assessment tools redesigned</div>
+        </li>
+      </ul>
+      <div class="field-group" style="margin-top:1rem">
+        <label>Notes on curriculum development activities</label>
+        <textarea placeholder="Describe new pedagogical approaches, course innovations, or curriculum contributions …"></textarea>
+      </div>
+
+      <hr class="divider">
+      <div class="subsection-title"><span class="dot"></span> PhD Supervision</div>
+      <div class="info-grid">
+        <div class="field-group">
+          <label>PhD students (ongoing)</label>
+          <input type="number" min="0" value="0" placeholder="0">
+        </div>
+        <div class="field-group">
+          <label>PhD students (completed, cumulative)</label>
+          <input type="number" min="0" value="0" placeholder="0">
+        </div>
+        <div class="field-group">
+          <label>M.Phil / M.A. dissertations supervised</label>
+          <input type="number" min="0" value="0" placeholder="0">
+        </div>
+        <div class="field-group">
+          <label>External PhD examinations / vivas</label>
+          <input type="number" min="0" value="0" placeholder="0">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: ACADEMIC SERVICE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title">Academic Service &amp; School Involvement</div>
+    </div>
+    <div class="section-body">
+
+      <div class="subsection-title" style="justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:0.5rem"><span class="dot"></span> Administrative &amp; Committee Responsibilities</span>
+        <span style="display:inline-flex;align-items:center;gap:0.4rem;font-family:'DM Sans',sans-serif;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#fff;background:var(--navy);padding:0.2rem 0.6rem;border-radius:20px;">
+          🔒 Administrator only
+        </span>
+      </div>
+
+      <div style="background:#f0f4fa;border:1.5px dashed #a0aec8;border-radius:8px;padding:0.7rem 1rem;margin-bottom:0.8rem;font-size:0.75rem;color:#4a5568;display:flex;align-items:center;gap:0.5rem;">
+        <span style="font-size:1rem">ℹ️</span>
+        This section is completed by the <strong>Dean / Administrator</strong> based on institutional records. Faculty members should leave it blank.
+      </div>
+
+      <ul class="checklist" style="pointer-events:none;opacity:0.6;">
+        <li style="cursor:default;">
+          <input type="checkbox" disabled>
+          <div class="item-text">
+            Committee participation (TSLAS / TIET)
+            <div class="item-note">Active attendance and contribution to committee meetings and deliverables</div>
+          </div>
+        </li>
+        <li style="cursor:default;">
+          <input type="checkbox" disabled>
+          <div class="item-text">Examination invigilation duties completed</div>
+        </li>
+        <li style="cursor:default;">
+          <input type="checkbox" disabled>
+          <div class="item-text">Student mentorship and pastoral responsibilities fulfilled</div>
+        </li>
+        <li style="cursor:default;">
+          <input type="checkbox" disabled>
+          <div class="item-text">Outreach / school events participated in or organised</div>
+        </li>
+        <li style="cursor:default;">
+          <input type="checkbox" disabled>
+          <div class="item-text">
+            Leadership role held (HoD, Program Coordinator, Chairman of Committee, etc.)
+            <div class="item-note">For Professor-level applicants</div>
+          </div>
+        </li>
+        <li style="cursor:default;">
+          <input type="checkbox" disabled>
+          <div class="item-text">Faculty hiring / recruitment committee participation</div>
+        </li>
+      </ul>
+
+      <div style="margin-top:0.8rem;">
+        <label style="font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">Administrator remarks</label>
+        <div style="border:1.5px dashed #a0aec8;border-radius:6px;background:#f0f4fa;height:60px;margin-top:0.3rem;display:flex;align-items:center;justify-content:center;color:#a0aec8;font-size:0.78rem;font-style:italic;">
+          For administrator use — to be filled on printed form
+        </div>
+      </div>
+
+      <div style="margin-top:0.6rem;display:flex;justify-content:flex-end;gap:2rem;font-size:0.78rem;color:var(--text-muted);">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.2rem;">
+          <div style="width:160px;border-bottom:1px solid #aaa;margin-bottom:0.2rem;"></div>
+          <span>Administrator Signature</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.2rem;">
+          <div style="width:100px;border-bottom:1px solid #aaa;margin-bottom:0.2rem;"></div>
+          <span>Date</span>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="subsection-title"><span class="dot"></span> Institutional Roles &amp; Governance</div>
+      <div class="field-group">
+        <label>Leadership / Governance roles held this quarter</label>
+        <textarea placeholder="e.g. Programme Coordinator for BA Economics, member of TSLAS Curriculum Committee, HoD …"></textarea>
+      </div>
+      <div class="field-group" style="margin-top:0.8rem">
+        <label>Institutional outreach &amp; public engagement</label>
+        <textarea placeholder="Industry liaison, community engagement, media appearances, policy contributions …"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: SELF-ASSESSMENT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div class="section-title">Self-Assessment &amp; Reflections</div>
+    </div>
+    <div class="section-body">
+      <div class="section-note">
+        This section is your opportunity to contextualise your achievements, identify gaps relative to promotion requirements, and set goals for the coming quarter.
+      </div>
+
+      <div class="subsection-title"><span class="dot"></span> Self-Rating (1 = Needs improvement · 5 = Excellent)</div>
+      <div class="rating-row">
+        <label>Research productivity</label>
+        <div class="rating-stars" id="r-research">
+          <button onclick="setRating('r-research',1)">1</button>
+          <button onclick="setRating('r-research',2)">2</button>
+          <button onclick="setRating('r-research',3)">3</button>
+          <button onclick="setRating('r-research',4)">4</button>
+          <button onclick="setRating('r-research',5)">5</button>
+        </div>
+      </div>
+      <div class="rating-row">
+        <label>Teaching quality &amp; student engagement</label>
+        <div class="rating-stars" id="r-teaching">
+          <button onclick="setRating('r-teaching',1)">1</button>
+          <button onclick="setRating('r-teaching',2)">2</button>
+          <button onclick="setRating('r-teaching',3)">3</button>
+          <button onclick="setRating('r-teaching',4)">4</button>
+          <button onclick="setRating('r-teaching',5)">5</button>
+        </div>
+      </div>
+      <div class="rating-row">
+        <label>School / institutional service</label>
+        <div class="rating-stars" id="r-service">
+          <button onclick="setRating('r-service',1)">1</button>
+          <button onclick="setRating('r-service',2)">2</button>
+          <button onclick="setRating('r-service',3)">3</button>
+          <button onclick="setRating('r-service',4)">4</button>
+          <button onclick="setRating('r-service',5)">5</button>
+        </div>
+      </div>
+      <div class="rating-row">
+        <label>Outreach &amp; international visibility</label>
+        <div class="rating-stars" id="r-outreach">
+          <button onclick="setRating('r-outreach',1)">1</button>
+          <button onclick="setRating('r-outreach',2)">2</button>
+          <button onclick="setRating('r-outreach',3)">3</button>
+          <button onclick="setRating('r-outreach',4)">4</button>
+          <button onclick="setRating('r-outreach',5)">5</button>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="narrative-grid">
+        <div class="field-group">
+          <label>Key achievements this quarter</label>
+          <textarea placeholder="Highlight 2–3 most significant accomplishments …"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Challenges &amp; gaps identified</label>
+          <textarea placeholder="Where have you fallen short of your targets? What obstacles did you face? …"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Goals for next quarter</label>
+          <textarea placeholder="Specific, measurable targets for Q+1 …"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Support needed from School / Dean</label>
+          <textarea placeholder="Research time allocation, funding, collaboration facilitation, mentoring …"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM ACTIONS -->
+  <div class="form-actions">
+    <div class="note">TSLAS Promotion Norms 2024–2027 · This form is for internal tracking purposes only and must be submitted to the Dean's office by the last working day of each quarter.</div>
+    <div style="display:flex;gap:0.5rem">
+      <button class="btn-save" onclick="saveData()">💾 Save Draft</button>
+      <button class="btn-print" onclick="window.print()">🖨 Print / Export PDF</button>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ─── REQUIREMENTS DATA ────────────────────────────────────────────────
+const REQUIREMENTS = {
+  AP2: {
+    label: "Assistant Professor II",
+    points: 40,
+    star4_min: 1,
+    total_pubs: 2,
+    notes: ["Min 40 research points", "At least one 4★ or 3★ paper"]
+  },
+  AP3: {
+    label: "Assistant Professor III",
+    points: 100,
+    star4_min: 1,
+    total_pubs: 4,
+    notes: ["Min 100 research points", "At least one 4★ or 3★ paper", "2×4★ alone sufficient", "1×4★ + 3×3★ sufficient"]
+  },
+  Assoc: {
+    label: "Associate Professor",
+    points: 200,
+    star4_min: 2,
+    total_pubs: 7,
+    notes: ["Min 7 papers from date of joining (1 must be solo)", "At least 2×4★ papers", "Min 200 research points", "1×4★ + 4×3★ sufficient (with max 1×2★)", "4×4★ alone sufficient"]
+  },
+  Prof: {
+    label: "Professor",
+    points: 250,
+    star4_min: 3,
+    total_pubs: 8,
+    notes: ["Min 8 new publications from date of promotion to Associate (2 solo)", "At least 3×4★, 5×3★ papers", "Min 250 research points", "1 completed PhD student required"]
+  }
+};
+
+// ─── POINT VALUES ──────────────────────────────────────────────────────
+const POINTS = { '4': 50, '3': 20, '2': 10, '1': 0 };
+
+let pubRows = 0, bookRows = 0, wpRows = 0, grantRows = 0, courseRows = 0;
+
+// ─── ADD ROWS ──────────────────────────────────────────────────────────
+function addPubRow() {
+  pubRows++;
+  const r = pubRows;
+  const tbody = document.getElementById('pub-tbody');
+  const tr = document.createElement('tr');
+  tr.id = `pub-row-${r}`;
+  tr.innerHTML = `
+    <td style="color:var(--text-muted);font-size:0.75rem">${r}</td>
+    <td><input type="text" placeholder="Title or brief description …" style="width:100%"></td>
+    <td><input type="text" placeholder="Journal name" style="width:120px"></td>
+    <td>
+      <select id="pub-quartile-${r}" onchange="applyQuartileMapping(${r})" style="width:80px">
+        <option value="">—</option>
+        <option value="Q1">Q1</option>
+        <option value="Q2">Q2</option>
+        <option value="Q3">Q3</option>
+        <option value="Q4">Q4</option>
+      </select>
+    </td>
+    <td>
+      <select style="width:110px">
+        <option>Published</option>
+        <option>Accepted</option>
+        <option>Minor Revision</option>
+        <option>Under Review</option>
+        <option>Forthcoming</option>
+      </select>
+    </td>
+    <td>
+      <select onchange="recalcPoints()" id="pub-star-${r}" style="width:70px">
+        <option value="">—</option>
+        <option value="4">★★★★</option>
+        <option value="3">★★★</option>
+        <option value="2">★★</option>
+        <option value="1">★ (not counted)</option>
+      </select>
+    </td>
+    <td class="solo-check"><input type="checkbox" title="Solo publication"></td>
+    <td class="points-cell" id="pub-pts-${r}">—</td>
+    <td><button class="btn-remove" onclick="removeRow('pub-row-${r}')">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+  document.getElementById(`pub-star-${r}`).addEventListener('change', recalcPoints);
+}
+
+function applyQuartileMapping(r) {
+  const q = document.getElementById(`pub-quartile-${r}`).value;
+  const starSel = document.getElementById(`pub-star-${r}`);
+  const ptCell = document.getElementById(`pub-pts-${r}`);
+  const map = { Q1: '4', Q2: '3', Q3: '2', Q4: '1' };
+  if (map[q]) {
+    starSel.value = map[q];
+    // Visual cue on Q4 — not counted
+    if (q === 'Q4') {
+      ptCell.textContent = '0';
+      ptCell.style.color = '#cc4444';
+      ptCell.title = 'Q4 publications do not count toward promotion at TSLAS';
+    } else {
+      ptCell.style.color = '';
+      ptCell.title = '';
+    }
+  }
+  recalcPoints();
+}
+
+function addBookRow() {
+  bookRows++;
+  const r = bookRows;
+  const tbody = document.getElementById('book-tbody');
+  const tr = document.createElement('tr');
+  tr.id = `book-row-${r}`;
+  tr.innerHTML = `
+    <td style="color:var(--text-muted);font-size:0.75rem">${r}</td>
+    <td><input type="text" placeholder="Title …" style="width:100%"></td>
+    <td><input type="text" placeholder="Publisher" style="width:120px"></td>
+    <td>
+      <select style="width:90px">
+        <option>A*</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>Unranked</option>
+      </select>
+    </td>
+    <td>
+      <select style="width:110px">
+        <option>Monograph</option>
+        <option>Book Chapter</option>
+        <option>Edited Volume</option>
+        <option>Co-authored Book</option>
+      </select>
+    </td>
+    <td>
+      <select style="width:110px">
+        <option>Published</option>
+        <option>Under Contract</option>
+        <option>In Preparation</option>
+      </select>
+    </td>
+    <td>
+      <select onchange="recalcPoints()" id="book-star-${r}" style="width:70px">
+        <option value="">—</option>
+        <option value="4">★★★★</option>
+        <option value="3">★★★</option>
+        <option value="2">★★</option>
+      </select>
+    </td>
+    <td class="points-cell" id="book-pts-${r}">—</td>
+    <td><button class="btn-remove" onclick="removeRow('book-row-${r}')">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+  document.getElementById(`book-star-${r}`).addEventListener('change', recalcPoints);
+}
+
+function addWPRow() {
+  wpRows++;
+  const r = wpRows;
+  const tbody = document.getElementById('wp-tbody');
+  const tr = document.createElement('tr');
+  tr.id = `wp-row-${r}`;
+  tr.innerHTML = `
+    <td style="color:var(--text-muted);font-size:0.75rem">${r}</td>
+    <td><input type="text" placeholder="Title / working title …" style="width:100%"></td>
+    <td>
+      <select style="width:130px">
+        <option>Draft in Progress</option>
+        <option>Complete Draft</option>
+        <option>Submitted</option>
+        <option>Under Revision</option>
+        <option>Resubmitted</option>
+      </select>
+    </td>
+    <td><input type="text" placeholder="Target venue" style="width:150px"></td>
+    <td class="solo-check"><input type="checkbox" title="Evidence of submission exists"></td>
+    <td><button class="btn-remove" onclick="removeRow('wp-row-${r}')">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+}
+
+function addGrantRow() {
+  grantRows++;
+  const r = grantRows;
+  const tbody = document.getElementById('grant-tbody');
+  const tr = document.createElement('tr');
+  tr.id = `grant-row-${r}`;
+  tr.innerHTML = `
+    <td style="color:var(--text-muted);font-size:0.75rem">${r}</td>
+    <td><input type="text" placeholder="Project title …" style="width:100%"></td>
+    <td><input type="text" placeholder="DST, ICSSR, Intl …" style="width:130px"></td>
+    <td>
+      <select style="width:110px">
+        <option>Internal</option>
+        <option>External — National</option>
+        <option>External — International</option>
+      </select>
+    </td>
+    <td><input type="text" placeholder="e.g. ₹5,00,000" style="width:100px"></td>
+    <td>
+      <select style="width:110px">
+        <option>Awarded</option>
+        <option>Applied</option>
+        <option>Ongoing</option>
+        <option>Completed</option>
+      </select>
+    </td>
+    <td><button class="btn-remove" onclick="removeRow('grant-row-${r}')">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+}
+
+function addCourseRow() {
+  courseRows++;
+  const r = courseRows;
+  const tbody = document.getElementById('course-tbody');
+  const tr = document.createElement('tr');
+  tr.id = `course-row-${r}`;
+  tr.innerHTML = `
+    <td style="color:var(--text-muted);font-size:0.75rem">${r}</td>
+    <td><input type="text" placeholder="Course name / code" style="width:100%"></td>
+    <td>
+      <select style="width:120px">
+        <option>UG Core</option>
+        <option>UG Elective</option>
+        <option>Interdisciplinary Core</option>
+        <option>PG Core</option>
+        <option>PG Elective</option>
+      </select>
+    </td>
+    <td><input type="number" min="1" placeholder="No." style="width:70px"></td>
+    <td class="solo-check"><input type="checkbox" title="Counts as interdisciplinary core"></td>
+    <td><input type="text" placeholder="Key achievement / innovation …" style="width:160px"></td>
+    <td><button class="btn-remove" onclick="removeRow('course-row-${r}')">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+}
+
+function removeRow(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+  recalcPoints();
+}
+
+// ─── RECALCULATE ───────────────────────────────────────────────────────
+function recalcPoints() {
+  let total = 0, count4 = 0, count3 = 0, count2 = 0, pubCount = 0;
+
+  // Journal pubs
+  for (let i = 1; i <= pubRows; i++) {
+    const sel = document.getElementById(`pub-star-${i}`);
+    const pts = document.getElementById(`pub-pts-${i}`);
+    if (!sel) continue;
+    const v = sel.value;
+    if (v && v !== '1') {
+      const p = POINTS[v] || 0;
+      total += p;
+      if (v === '4') count4++;
+      if (v === '3') count3++;
+      if (v === '2') count2++;
+      pubCount++;
+      if (pts) pts.textContent = p;
+    } else if (pts) {
+      pts.textContent = v === '1' ? '0 (not counted)' : '—';
+    }
+  }
+
+  // Books
+  for (let i = 1; i <= bookRows; i++) {
+    const sel = document.getElementById(`book-star-${i}`);
+    const pts = document.getElementById(`book-pts-${i}`);
+    if (!sel) continue;
+    const v = sel.value;
+    if (v) {
+      const p = POINTS[v] || 0;
+      total += p;
+      if (v === '4') count4++;
+      if (v === '3') count3++;
+      if (v === '2') count2++;
+      pubCount++;
+      if (pts) pts.textContent = p;
+    } else if (pts) {
+      pts.textContent = '—';
+    }
+  }
+
+  document.getElementById('ps-4star').textContent = count4;
+  document.getElementById('ps-3star').textContent = count3;
+  document.getElementById('ps-2star').textContent = count2;
+  document.getElementById('ps-total').textContent = total;
+
+  // Dashboard
+  document.getElementById('dash-points').textContent = total;
+  document.getElementById('dash-pubs').textContent = pubCount;
+  document.getElementById('dash-4star').textContent = count4;
+  document.getElementById('dash-total-pubs').textContent = pubCount;
+
+  // Progress bar
+  const seeking = document.getElementById('seeking').value;
+  const req = REQUIREMENTS[seeking];
+  if (req) {
+    const pct = Math.min(100, Math.round((total / req.points) * 100));
+    document.getElementById('dash-bar').style.width = pct + '%';
+    document.getElementById('dash-pct').textContent = pct + '%';
+    document.getElementById('dash-req-pts').textContent = req.points;
+    document.getElementById('dash-req-4star').textContent = req.star4_min;
+  }
+}
+
+// ─── REQUIREMENTS PANEL ────────────────────────────────────────────────
+function updateRequirements() {
+  const seeking = document.getElementById('seeking').value;
+  const req = REQUIREMENTS[seeking];
+  const panel = document.getElementById('req-panel');
+  const list = document.getElementById('req-list');
+
+  if (!req) {
+    panel.querySelector('h4').textContent = 'Select your target level above to see promotion requirements.';
+    list.innerHTML = '';
+    return;
+  }
+
+  panel.querySelector('h4').textContent = `Minimum requirements — ${req.label}`;
+  list.innerHTML = req.notes.map(n => `
+    <li>
+      <div class="req-icon req-pending">→</div>
+      ${n}
+    </li>
+  `).join('');
+
+  document.getElementById('dash-req-pts').textContent = req.points;
+  document.getElementById('dash-req-4star').textContent = req.star4_min;
+  recalcPoints();
+}
+
+// ─── RATING ────────────────────────────────────────────────────────────
+function setRating(groupId, value) {
+  const group = document.getElementById(groupId);
+  const btns = group.querySelectorAll('button');
+  btns.forEach((b, i) => {
+    b.classList.toggle('active', i < value);
+  });
+}
+
+// ─── TOGGLE CHECKLIST ─────────────────────────────────────────────────
+function toggleCheck(li) {
+  const cb = li.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  li.classList.toggle('checked', cb.checked);
+}
+
+// ─── SAVE (localStorage stub) ─────────────────────────────────────────
+function saveData() {
+  alert('Draft saved! (In a deployed version, this would save to your institution\'s server or local storage.)');
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────
+document.getElementById('seeking').addEventListener('change', updateRequirements);
+document.getElementById('acad-year').value = '2025–26';
+
+// Add one default row each
+addPubRow();
+addCourseRow();
+</script>
+</body>
+</html>
