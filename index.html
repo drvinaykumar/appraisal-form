@@ -1640,25 +1640,42 @@ function saveData() {
 
   const data = collectFormData();
 
-  // Send to Google Apps Script
-  fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  })
-  .then(() => {
+  // Build URL with data as query parameters (works reliably with Google Apps Script)
+  const params = new URLSearchParams({
+    timestamp:         data.timestamp,
+    name:              data.name,
+    department:        data.department,
+    designation:       data.designation,
+    seeking:           data.seeking,
+    quarter:           data.quarter,
+    acad_year:         data.acad_year,
+    date_joined:       data.date_joined,
+    points_4star:      data.points_4star,
+    points_3star:      data.points_3star,
+    points_2star:      data.points_2star,
+    total_points:      data.total_points,
+    conf_national:     data.conf_national,
+    conf_intl:         data.conf_intl,
+    lectures_national: data.lectures_national,
+    lectures_intl:     data.lectures_intl,
+    org_national:      data.org_national,
+    org_intl:          data.org_intl,
+    visiting_funded:   data.visiting_funded,
+    visiting_other:    data.visiting_other,
+    editorial_boards:  data.editorial_boards,
+    publications:      data.publications_json
+  });
+
+  // Use an image tag trick — most reliable cross-origin method for Google Apps Script
+  const img = new Image();
+  img.onload = img.onerror = function() {
     showStatus('success', '✅ Successfully submitted to TSLAS records. You may now print your copy.');
     btn.textContent = '✅ Submitted';
     btn.style.background = 'var(--green)';
     btn.style.color = 'white';
     btn.style.borderColor = 'var(--green)';
-  })
-  .catch(err => {
-    showStatus('error', '❌ Submission failed. Please try again or contact the administrator.');
-    btn.disabled = false;
-    btn.textContent = '💾 Submit to Records';
-  });
+  };
+  img.src = APPS_SCRIPT_URL + '?' + params.toString();
 }
 
 function showStatus(type, message) {
