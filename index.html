@@ -628,6 +628,33 @@
 
 <div class="main">
 
+  <!-- LIVE DASHBOARD -->
+  <div class="dashboard">
+    <div class="dash-card">
+      <div class="dash-label">Research Points (Cumulative)</div>
+      <div class="dash-value" id="dash-points">0</div>
+      <div class="dash-sub">Required for next level: <span id="dash-req-pts">—</span></div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-label">Publications This Quarter</div>
+      <div class="dash-value" id="dash-pubs">0</div>
+      <div class="dash-sub">Total accumulated: <span id="dash-total-pubs">0</span></div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-label">4★ Publications</div>
+      <div class="dash-value" id="dash-4star">0</div>
+      <div class="dash-sub">Required: <span id="dash-req-4star">—</span></div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-label">
+        <span>Progress toward next promotion</span>
+        <span id="dash-pct">0%</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="dash-bar"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- SECTION 1: PERSONAL INFORMATION -->
   <div class="section">
@@ -1160,9 +1187,12 @@
 
   <!-- FORM ACTIONS -->
   <div class="form-actions">
-    <div class="note">TSLAS Promotion Norms 2024–2027 · This form is for internal tracking purposes only and must be submitted to the Dean's office by the last working day of each quarter.</div>
+    <div>
+      <div class="note">TSLAS Promotion Norms 2024–2027 · This form is for internal tracking purposes only and must be submitted to the Dean's office by the last working day of each quarter.</div>
+      <div id="save-status" style="margin-top:0.5rem;font-size:0.78rem;display:none;padding:0.4rem 0.8rem;border-radius:6px;font-weight:500;"></div>
+    </div>
     <div style="display:flex;gap:0.5rem">
-      <button class="btn-save" onclick="saveData()">💾 Save Draft</button>
+      <button class="btn-save" onclick="saveData()" id="btn-save-main">💾 Submit to Records</button>
       <button class="btn-print" onclick="window.print()">🖨 Print / Export PDF</button>
     </div>
   </div>
@@ -1518,8 +1548,136 @@ function toggleCheck(li) {
 }
 
 // ─── SAVE (localStorage stub) ─────────────────────────────────────────
+// ─── GOOGLE SHEETS INTEGRATION ────────────────────────────────────────
+// Paste your Google Apps Script Web App URL below after setup
+const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/thapar.edu/s/AKfycby4o1dufnz3er-XMmV9vC6QR8bzvgW8YecaLiOArgoMoi1-O9rIBfa89slEekREsv05/exec';
+
+function collectFormData() {
+  // Personal info
+  const data = {
+    timestamp: new Date().toLocaleString('en-IN'),
+    name:        document.getElementById('fname').value || '—',
+    department:  document.getElementById('dept').value || '—',
+    designation: document.getElementById('designation').value || '—',
+    seeking:     document.getElementById('seeking').value || '—',
+    quarter:     document.getElementById('quarter').value || '—',
+    acad_year:   document.getElementById('acad-year').value || '—',
+    date_joined: document.getElementById('doj').value || '—',
+
+    // Research points summary
+    points_4star: document.getElementById('ps-4star').textContent,
+    points_3star: document.getElementById('ps-3star').textContent,
+    points_2star: document.getElementById('ps-2star').textContent,
+    total_points: document.getElementById('ps-total').textContent,
+
+    // Outreach counts
+    conf_national:    document.getElementById('conf-nat').value,
+    conf_intl:        document.getElementById('conf-intl').value,
+    lectures_national: document.getElementById('lec-nat').value,
+    lectures_intl:    document.getElementById('lec-intl').value,
+    org_national:     document.getElementById('org-nat').value,
+    org_intl:         document.getElementById('org-intl').value,
+    visiting_funded:  document.getElementById('visit-funded').value,
+    visiting_other:   document.getElementById('visit-other').value,
+    editorial_boards: document.getElementById('editorial').value || '—',
+
+    // Publications list
+    publications: []
+  };
+
+  // Collect journal pub rows
+  for (let i = 1; i <= pubRows; i++) {
+    const row = document.getElementById(`pub-row-${i}`);
+    if (!row) continue;
+    const cells = row.querySelectorAll('input[type="text"], select');
+    const title = row.querySelector('td:nth-child(2) input') ? row.querySelector('td:nth-child(2) input').value : '';
+    const journal = row.querySelector('td:nth-child(3) input') ? row.querySelector('td:nth-child(3) input').value : '';
+    const quartile = document.getElementById(`pub-quartile-${i}`) ? document.getElementById(`pub-quartile-${i}`).value : '';
+    const star = document.getElementById(`pub-star-${i}`) ? document.getElementById(`pub-star-${i}`).value : '';
+    const pts = document.getElementById(`pub-pts-${i}`) ? document.getElementById(`pub-pts-${i}`).textContent : '';
+    const solo = row.querySelector('input[type="checkbox"]') ? (row.querySelector('input[type="checkbox"]').checked ? 'Yes' : 'No') : 'No';
+    if (title) data.publications.push({ type: 'Journal/Conf', title, journal, quartile, star, pts, solo });
+  }
+
+  // Collect book rows
+  for (let i = 1; i <= bookRows; i++) {
+    const row = document.getElementById(`book-row-${i}`);
+    if (!row) continue;
+    const title = row.querySelector('td:nth-child(2) input') ? row.querySelector('td:nth-child(2) input').value : '';
+    const publisher = row.querySelector('td:nth-child(3) input') ? row.querySelector('td:nth-child(3) input').value : '';
+    const star = document.getElementById(`book-star-${i}`) ? document.getElementById(`book-star-${i}`).value : '';
+    const pts = document.getElementById(`book-pts-${i}`) ? document.getElementById(`book-pts-${i}`).textContent : '';
+    if (title) data.publications.push({ type: 'Book/Chapter', title, journal: publisher, quartile: '—', star, pts, solo: '—' });
+  }
+
+  data.publications_json = JSON.stringify(data.publications);
+  return data;
+}
+
 function saveData() {
-  alert('Draft saved! (In a deployed version, this would save to your institution\'s server or local storage.)');
+  const btn = document.getElementById('btn-save-main');
+  const status = document.getElementById('save-status');
+
+  // Validate minimum fields
+  if (!document.getElementById('fname').value) {
+    showStatus('error', '⚠️ Please enter your name before submitting.');
+    return;
+  }
+  if (!document.getElementById('designation').value) {
+    showStatus('error', '⚠️ Please select your current designation before submitting.');
+    return;
+  }
+
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+    showStatus('error', '⚠️ Google Sheets is not connected yet. Please contact the administrator.');
+    return;
+  }
+
+  // Disable button while submitting
+  btn.disabled = true;
+  btn.textContent = '⏳ Submitting…';
+  showStatus('info', 'Sending your data to TSLAS records…');
+
+  const data = collectFormData();
+
+  // Send to Google Apps Script
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    showStatus('success', '✅ Successfully submitted to TSLAS records. You may now print your copy.');
+    btn.textContent = '✅ Submitted';
+    btn.style.background = 'var(--green)';
+    btn.style.color = 'white';
+    btn.style.borderColor = 'var(--green)';
+  })
+  .catch(err => {
+    showStatus('error', '❌ Submission failed. Please try again or contact the administrator.');
+    btn.disabled = false;
+    btn.textContent = '💾 Submit to Records';
+  });
+}
+
+function showStatus(type, message) {
+  const el = document.getElementById('save-status');
+  el.style.display = 'block';
+  el.textContent = message;
+  if (type === 'success') {
+    el.style.background = 'var(--green-light)';
+    el.style.color = 'var(--green)';
+    el.style.border = '1px solid #a8d5be';
+  } else if (type === 'error') {
+    el.style.background = 'var(--amber-light)';
+    el.style.color = 'var(--amber)';
+    el.style.border = '1px solid #e8b09a';
+  } else {
+    el.style.background = 'var(--cream-dark)';
+    el.style.color = 'var(--text-muted)';
+    el.style.border = '1px solid var(--border)';
+  }
 }
 
 // ─── INIT ──────────────────────────────────────────────────────────────
